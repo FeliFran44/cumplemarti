@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños, Mi Amor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="hearts-container"></div>
+    <div id="confetti-container"></div>
+
+    <!-- Audio para música de fondo -->
+    <audio id="background-music" loop>
+        <source src="photograph.mp3" type="audio/mpeg">
+        <source src="photograph.wav" type="audio/wav">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    
+    <!-- Instrucciones para música -->
+    <div id="music-instructions" style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; font-size: 12px; z-index: 1000;">
+        💡 Haz clic en cualquier lugar para activar la música
+    </div>
+
+    <div id="countdown-container">
+        <h1>Falta muy poco para tu día especial...</h1>
+        <div id="countdown">
+            <div class="time-box">
+                <span id="days"></span>
+                <p>Días</p>
+            </div>
+            <div class="time-box">
+                <span id="hours"></span>
+                <p>Horas</p> 
+            </div>
+            <div class="time-box">
+                <span id="minutes"></span>
+                <p>Minutos</p>
+            </div>
+            <div class="time-box">
+                <span id="seconds"></span>
+                <p>Segundos</p>
+            </div>
+        </div>
+        
+        <!-- Botón de sorpresa -->
+        <button id="surprise-btn" class="surprise-button" onclick="mostrarSorpresa();">
+            <span>💝</span>
+            <span>Haz clic para una sorpresa</span>
+        </button>
+    </div>
+
+    <!-- Nueva sección de mensaje especial -->
+    <section id="special-message">
+        <div class="message-container">
+            <div class="message-content">
+                <h2 class="message-title">Mi Amor...</h2>
+                <div class="message-text">
+                    <p>Desde el primer momento que te vi, supe que mi vida cambiaría para siempre. Cada día a tu lado es un regalo que atesoro con todo mi corazón.</p>
+                    <p>Tu sonrisa ilumina mis días, tu risa es la música más hermosa que he escuchado, y tu amor es el combustible que hace que mi corazón lata con más fuerza.</p>
+                    <p>En tu cumpleaños, quiero que sepas que eres el sueño hecho realidad que nunca supe que tenía. Eres mi presente, mi futuro, y mi todo.</p>
+                    <p class="signature">Te amo más de lo que las palabras pueden expresar ❤️</p>
+                </div>
+                <button id="close-message" class="close-btn" onclick="cerrarMensaje()">Cerrar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN DE LA LÍNEA DE TIEMPO (AHORA EN HTML) ===== -->
+    <section id="timeline-section" class="hidden">
+        <div class="timeline">
+            
+            <!-- MES 1: Julio 2024 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h2>Julio 2024</h2>
+                    <img src="felipe1.jpg" alt="Recuerdo de Julio 2024">
+                    <p>Aquí es donde empieza nuestra hermosa historia, el 27 de julio, un dia super especial.</p>
+                </div>
+            </div>
+
+            <!-- MES 2: Agosto 2024 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h2>Agosto 2024</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Agosto 2024">
+                    <p>Describe ese momento inolvidable que vivimos en agosto. ¡Fue mágico!</p>
+                </div>
+            </div>
+
+            <!-- MES 3: Septiembre 2024 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h2>Septiembre 2024</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Septiembre 2024">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 4: Octubre 2024 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h2>Octubre 2024</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Octubre 2024">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 5: Noviembre 2024 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h2>Noviembre 2024</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Noviembre 2024">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 6: Diciembre 2024 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h2>Diciembre 2024</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Diciembre 2024">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 7: Enero 2025 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h2>Enero 2025</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Enero 2025">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 8: Febrero 2025 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h2>Febrero 2025</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Febrero 2025">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 9: Marzo 2025 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h2>Marzo 2025</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Marzo 2025">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 10: Abril 2025 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h2>Abril 2025</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Abril 2025">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 11: Mayo 2025 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h2>Mayo 2025</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Mayo 2025">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+            
+            <!-- MES 12: Junio 2025 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h2>Junio 2025</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Junio 2025">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 13: Julio 2025 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h2>Julio 2025</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Julio 2025">
+                    <p>Edita este texto con un recuerdo especial de este mes.</p>
+                </div>
+            </div>
+
+            <!-- MES 14: Agosto 2025 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h2>Agosto 2025</h2>
+                    <img src="fotos/placeholder.jpg" alt="Recuerdo de Agosto 2025">
+                    <p>¡Y llegamos a tu cumpleaños! Este último mes ha sido increíble. ¡Te amo!</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    
+    <!-- Función global para cerrar mensaje -->
+    <script>
+        function cerrarMensaje() {
+            document.getElementById('special-message').style.display = 'none';
+            // NO activar música al cerrar
+        }
+        
+        function mostrarSorpresa() {
+            const mensaje = document.getElementById('special-message');
+            mensaje.style.display = 'flex'; // Mostrar el mensaje
+            // Intentar activar música solo al abrir
+            try {
+                const music = document.getElementById('background-music');
+                if (music) {
+                    music.volume = 0.3;
+                    music.play().catch(e => console.log('Música no disponible:', e));
+                }
+            } catch (e) {
+                console.log('Música no disponible');
+            }
+        }
+    </script>
+</body>
+</html>

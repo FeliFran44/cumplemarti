@@ -1,0 +1,429 @@
+/* --- GOOGLE FONTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* --- ESTILOS GENERALES Y FONDO --- */
+body {
+    margin: 0;
+    padding: 0;
+    /* Nuevo fondo degradado, más oscuro y elegante */
+    background: radial-gradient(circle, #5c0000, #2c0000);
+    overflow: hidden; /* Se habilita el scroll con JS al ver la línea de tiempo */
+    font-family: 'Lora', serif; /* Nueva fuente para el cuerpo */
+    color: #fce4ec; /* Un color blanco rosado muy suave */
+}
+
+/* --- CORAZONES VOLADORES (SIN CAMBIOS) --- */
+#hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: rotate(-45deg);
+    animation: fly 10s linear infinite;
+}
+
+.heart::before, .heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+}
+
+.heart::before { top: -10px; left: 0; }
+.heart::after { top: 0; left: 10px; }
+
+@keyframes fly {
+    0% { transform: translateY(100vh) rotate(-45deg); opacity: 1; }
+    100% { transform: translateY(-100vh) rotate(-45deg); opacity: 0; }
+}
+
+/* --- CONFETI --- */
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ff69b4;
+    animation: confetti-fall 3s linear infinite;
+}
+
+.confetti:nth-child(2n) {
+    background-color: #ff1493;
+    animation-duration: 2.5s;
+}
+
+.confetti:nth-child(3n) {
+    background-color: #ffb6c1;
+    animation-duration: 3.5s;
+}
+
+.confetti:nth-child(4n) {
+    background-color: #ffc0cb;
+    animation-duration: 2s;
+}
+
+.confetti:nth-child(5n) {
+    background-color: #ff69b4;
+    animation-duration: 4s;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* --- CONTADOR (ESTILO MEJORADO) --- */
+#countdown-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive; /* Nueva fuente para el título principal */
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    font-weight: normal;
+    text-shadow: 0 0 15px rgba(255, 209, 220, 0.7); /* Sombra con brillo rosado */
+    animation: title-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes title-glow {
+    from { text-shadow: 0 0 15px rgba(255, 209, 220, 0.7); }
+    to { text-shadow: 0 0 25px rgba(255, 209, 220, 1), 0 0 35px rgba(255, 209, 220, 0.5); }
+}
+
+#countdown { display: flex; gap: 1.5rem; }
+
+.time-box {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.time-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 40px rgba(255, 138, 128, 0.3);
+}
+
+.time-box span { font-size: 4rem; font-weight: bold; color: #fff; }
+.time-box p { font-size: 1.2rem; margin-top: 0.5rem; color: #fce4ec; }
+
+/* --- BOTÓN DE SORPRESA --- */
+.surprise-button {
+    margin-top: 3rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Lora', serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.surprise-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6);
+    background: linear-gradient(45deg, #ff1493, #ff69b4);
+}
+
+.surprise-button:active {
+    transform: scale(0.95);
+}
+
+/* --- MENSAJE ESPECIAL --- */
+#special-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none; /* CAMBIADO: oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 20000;
+    backdrop-filter: blur(10px);
+}
+
+.message-container {
+    background: linear-gradient(135deg, #fff5f5, #ffe4e6);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 600px;
+    margin: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: message-appear 0.5s ease-out;
+}
+
+@keyframes message-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.message-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #c2185b;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.message-text p {
+    margin-bottom: 1rem;
+}
+
+.signature {
+    font-style: italic;
+    font-weight: bold;
+    color: #c2185b !important;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.close-btn {
+    background: linear-gradient(45deg, #c2185b, #e91e63);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.close-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(194, 24, 91, 0.4);
+    background: linear-gradient(45deg, #e91e63, #c2185b);
+}
+
+.close-btn:active {
+    transform: scale(0.95);
+}
+
+.close-btn:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* --- CLASE PARA OCULTAR ELEMENTOS --- */
+.hidden {
+    display: none;
+}
+
+/* --- NUEVO DISEÑO DE LÍNEA DE TIEMPO --- */
+#timeline-section {
+    overflow-y: auto;
+    height: 100vh;
+    padding: 80px 0;
+    box-sizing: border-box;
+}
+
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* La línea central con efecto de brillo */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: #ff8a80; /* Un color coral brillante */
+    box-shadow: 0 0 15px rgba(255, 138, 128, 0.7);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+    box-sizing: border-box;
+    /* Estado inicial para la animación de scroll */
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Clase que se añade con JS para animar la entrada */
+.timeline-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item.left { left: 0; }
+.timeline-item.right { left: 50%; }
+
+/* Los puntos en la línea, ahora con animación de pulso */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -12px;
+    background-color: white;
+    border: 4px solid #ff8a80;
+    top: 32px;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 20px rgba(255, 138, 128, 0.9);
+    animation: pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+.timeline-item.right::after { left: -12px; }
+
+@keyframes pulse {
+    0%, 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 138, 128, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 138, 128, 0); }
+    100% { transform: scale(0.95); }
+}
+
+/* Nuevo diseño de las tarjetas de recuerdo */
+.timeline-content {
+    padding: 20px;
+    background-color: rgba(255, 250, 250, 0.98); /* Blanco nieve, casi opaco */
+    position: relative;
+    border-radius: 10px;
+    color: #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Efecto interactivo al pasar el mouse */
+.timeline-content:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.timeline-item.left .timeline-content:hover {
+    transform: scale(1.05) rotate(-1deg);
+}
+
+.timeline-content img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border: 5px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.timeline-content h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin-top: 0;
+    font-weight: normal;
+    color: #c2185b; /* Un color magenta profundo */
+}
+
+.timeline-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    }
+    
+    #countdown {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .time-box span {
+        font-size: 2.5rem;
+    }
+    
+    .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        padding: 10px 20px;
+    }
+    
+    .timeline::after {
+        left: 20px;
+    }
+    
+    .timeline-item::after {
+        left: 8px !important;
+        right: auto;
+    }
+    
+    .message-container {
+        margin: 1rem;
+        padding: 2rem;
+    }
+    
+    .message-title {
+        font-size: 2rem;
+    }
+}
