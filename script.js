@@ -8,8 +8,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const backgroundMusic = document.getElementById('background-music');
     const confettiContainer = document.getElementById('confetti-container');
     const musicInstructions = document.getElementById('music-instructions');
+    const particlesContainer = document.getElementById('particles-container');
 
     let musicActivated = false;
+
+    // --- NUEVOS EFECTOS DE PARTÍCULAS SOFISTICADOS ---
+    const createParticles = () => {
+        // Crear estrellas brillantes
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            particlesContainer.appendChild(star);
+        }
+
+        // Crear pétalos de rosa
+        for (let i = 0; i < 20; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDelay = Math.random() * 8 + 's';
+            particlesContainer.appendChild(petal);
+        }
+
+        // Crear burbujas de amor
+        for (let i = 0; i < 15; i++) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            bubble.style.left = Math.random() * 100 + 'vw';
+            bubble.style.animationDelay = Math.random() * 15 + 's';
+            particlesContainer.appendChild(bubble);
+        }
+    };
+
+    // Inicializar partículas
+    createParticles();
+
+    // --- EFECTOS DE SONIDO ---
+    const playHeartbeat = () => {
+        try {
+            const heartbeat = document.getElementById('heartbeat-sound');
+            if (heartbeat) {
+                heartbeat.volume = 0.2;
+                heartbeat.play().catch(e => console.log('Sonido no disponible:', e));
+            }
+        } catch (e) {
+            console.log('Sonido no disponible');
+        }
+    };
+
+    const playBell = () => {
+        try {
+            const bell = document.getElementById('bell-sound');
+            if (bell) {
+                bell.volume = 0.3;
+                bell.play().catch(e => console.log('Sonido no disponible:', e));
+            }
+        } catch (e) {
+            console.log('Sonido no disponible');
+        }
+    };
 
     // --- Función para activar música ---
     const activateMusic = () => {
@@ -19,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 backgroundMusic.play().then(() => {
                     musicActivated = true;
                     musicInstructions.style.display = 'none';
+                    playBell(); // Sonido de campanilla al activar música
                 }).catch(e => console.log('Música no disponible:', e));
             } catch (e) {
                 console.log('Música no disponible');
@@ -52,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Función para mostrar mensaje especial ---
     const showSpecialMessage = () => {
         specialMessage.style.display = 'flex';
-        // NO activar música aquí - se activa desde la función global
+        playHeartbeat(); // Sonido de corazón al mostrar mensaje
     };
 
     // --- Event listeners para botones ---
@@ -199,4 +260,133 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Iniciar parpadeo después de 3 segundos
     setTimeout(blinkButton, 3000);
+
+    // --- MINI-JUEGO DE MEMORIA ---
+    let gameCards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let moves = 0;
+    let gameTimer = null;
+    let gameTime = 0;
+    let canFlip = true;
+
+    const symbols = ['❤️', '💕', '💖', '💗', '💘', '💝', '💞', '💟'];
+    const gameSymbols = [...symbols, ...symbols]; // Duplicar para hacer pares
+
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
+
+    const createGameCard = (symbol, index) => {
+        const card = document.createElement('div');
+        card.classList.add('memory-card');
+        card.dataset.symbol = symbol;
+        card.dataset.index = index;
+        card.addEventListener('click', () => flipCard(card));
+        return card;
+    };
+
+    const flipCard = (card) => {
+        if (!canFlip || card.classList.contains('flipped') || card.classList.contains('matched')) {
+            return;
+        }
+
+        card.classList.add('flipped');
+        card.textContent = card.dataset.symbol;
+        flippedCards.push(card);
+
+        if (flippedCards.length === 2) {
+            canFlip = false;
+            moves++;
+            document.getElementById('moves').textContent = moves;
+
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.symbol === card2.dataset.symbol) {
+                // ¡Match!
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                document.getElementById('pairs').textContent = matchedPairs;
+                playBell(); // Sonido de campanilla al hacer match
+                
+                if (matchedPairs === 8) {
+                    // ¡Juego completado!
+                    setTimeout(() => {
+                        alert('¡Felicitaciones! Has completado el juego de memoria del amor 💕');
+                        playHeartbeat(); // Sonido de corazón al completar
+                    }, 500);
+                }
+            } else {
+                // No match
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    card1.textContent = '';
+                    card2.textContent = '';
+                }, 1000);
+            }
+
+            flippedCards = [];
+            setTimeout(() => {
+                canFlip = true;
+            }, 1000);
+        }
+    };
+
+    const updateGameTimer = () => {
+        gameTime++;
+        const minutes = Math.floor(gameTime / 60);
+        const seconds = gameTime % 60;
+        document.getElementById('time').textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    const iniciarJuego = () => {
+        const grid = document.getElementById('memory-grid');
+        grid.innerHTML = '';
+        
+        // Resetear variables
+        gameCards = [];
+        flippedCards = [];
+        matchedPairs = 0;
+        moves = 0;
+        gameTime = 0;
+        canFlip = true;
+        
+        // Actualizar estadísticas
+        document.getElementById('moves').textContent = moves;
+        document.getElementById('pairs').textContent = matchedPairs;
+        document.getElementById('time').textContent = '00:00';
+        
+        // Mezclar símbolos
+        const shuffledSymbols = shuffleArray([...gameSymbols]);
+        
+        // Crear tarjetas
+        shuffledSymbols.forEach((symbol, index) => {
+            const card = createGameCard(symbol, index);
+            grid.appendChild(card);
+            gameCards.push(card);
+        });
+        
+        // Iniciar timer
+        if (gameTimer) clearInterval(gameTimer);
+        gameTimer = setInterval(updateGameTimer, 1000);
+    };
+
+    const reiniciarJuego = () => {
+        iniciarJuego();
+    };
+
+    // Hacer funciones globales
+    window.iniciarJuego = iniciarJuego;
+    window.reiniciarJuego = reiniciarJuego;
+    window.cerrarJuego = () => {
+        document.getElementById('memory-game').style.display = 'none';
+        if (gameTimer) clearInterval(gameTimer);
+    };
 });

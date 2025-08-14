@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Contenedores de partículas sofisticadas -->
+    <div id="particles-container"></div>
     <div id="hearts-container"></div>
     <div id="confetti-container"></div>
 
@@ -15,6 +17,15 @@
         <source src="photograph.mp3" type="audio/mpeg">
         <source src="photograph.wav" type="audio/wav">
         Tu navegador no soporta el elemento de audio.
+    </audio>
+    
+    <!-- Efectos de sonido -->
+    <audio id="heartbeat-sound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+    
+    <audio id="bell-sound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
     </audio>
     
     <!-- Instrucciones para música -->
@@ -48,6 +59,12 @@
             <span>💝</span>
             <span>Haz clic para una sorpresa</span>
         </button>
+        
+        <!-- Nuevo botón para el mini-juego -->
+        <button id="game-btn" class="surprise-button" onclick="mostrarJuego();" style="margin-top: 1rem; background: linear-gradient(45deg, #4caf50, #45a049);">
+            <span>🎮</span>
+            <span>Jugar Memoria</span>
+        </button>
     </div>
 
     <!-- Nueva sección de mensaje especial -->
@@ -65,6 +82,25 @@
             </div>
         </div>
     </section>
+
+    <!-- Mini-juego de memoria -->
+    <div id="memory-game">
+        <div class="memory-container">
+            <h2 style="font-family: 'Great Vibes', cursive; color: #c2185b; margin-bottom: 1rem;">🎮 Juego de Memoria del Amor</h2>
+            <div class="memory-stats">
+                <div>Movimientos: <span id="moves">0</span></div>
+                <div>Pares: <span id="pairs">0</span>/8</div>
+                <div>Tiempo: <span id="time">00:00</span></div>
+            </div>
+            <div class="memory-grid" id="memory-grid">
+                <!-- Las tarjetas se generarán con JavaScript -->
+            </div>
+            <div style="margin-top: 1rem;">
+                <button class="memory-btn" onclick="reiniciarJuego()">🔄 Reiniciar</button>
+                <button class="memory-btn" onclick="cerrarJuego()">❌ Cerrar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ===== SECCIÓN DE LA LÍNEA DE TIEMPO (AHORA EN HTML) ===== -->
     <section id="timeline-section" class="hidden">
@@ -221,6 +257,15 @@
             } catch (e) {
                 console.log('Música no disponible');
             }
+        }
+        
+        function mostrarJuego() {
+            document.getElementById('memory-game').style.display = 'flex';
+            iniciarJuego();
+        }
+        
+        function cerrarJuego() {
+            document.getElementById('memory-game').style.display = 'none';
         }
     </script>
 </body>
